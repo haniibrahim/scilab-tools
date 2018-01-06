@@ -1,12 +1,13 @@
-function [exitID] = writecsv_i(path)
+function [exitID] = writecsv_i(mat_name, path)
     //
     // Write numerical data stored in a matrix in a CSV file interactively
     //
     // CALLING SEQUENCES
-    // [exitID] = readcsv_i(path)
-    // [exitID] = readcsv_i()
+    // [exitID] = readcsv_i(mat_name, path)
+    // [exitID] = readcsv_i(mat_name)
     //
     // PARAMETERS
+    // mat_name:Name of the matrix variable you want to store in a csv-file in ""
     // path:    Path at which the file selector points to first (OPTIONAL)
     //          If not commited the HOME/USERPROFILE directory is used
     // exitID:  Exit#
@@ -14,17 +15,18 @@ function [exitID] = writecsv_i(path)
     //          -1: Canceled file selection
     //          -2: Canceled parameter dialog box
     //          -3: Cannot write CSV file
+    //          -4: No matrix name specified
     // 
     // DESCRIPTION
     // Write a given numerical matrix to an CSV-file interactively. 
     //
     // EXAMPLES
-    // [exitID] = writecsv_i(pwd()) // Open the file selector in the currend directory
-    // writecsv_i()
+    // [exitID] = writecsv_i("a", pwd()) // Open the file selector in the currend directory
+    // writecsv_i("a");
     //
     
     inarg = argn(2);
-    if inarg > 1 then error(39); end
+    if inarg > 2 | inarg < 1 then error(39); end
     
     // init values
     exitID = 0; // All OK
@@ -39,7 +41,7 @@ function [exitID] = writecsv_i(path)
     end
     
     // Get filename incl. path of an CSV file
-    fn=uiputfile(["*.csv","Comma Separated Value files (*.csv)"],path,"Choose a filename")
+    fn=uiputfile(["*.csv","Comma Separated Value files (*.csv)"],path,"Choose a filename to store numerical data")
     if fn == "" then
         exitID = -1; // Canceled file selector
         return;
@@ -51,17 +53,28 @@ function [exitID] = writecsv_i(path)
     end
     
     // Get some parameters for interpreting the csv file and the name of the output matrix
-    labels=["Name of matrix"; "Field separator: , | ; | tab | space"; "Decimal separator: . | ,"];
+    labels=["Field separator: , | ; | tab | space"; "Decimal separator: . | ,";"Comment header"];
     dat=list("str", 1, "str", 1, "str", 1);
-    values=[""; ","; "."];
+    values=[","; "."; ""];
 
-    [ok, mat_name, fld_sep, dec] = getvalue("CSV and Scilab parameters", labels, dat, values);
+    [ok, fld_sep, dec, com] = getvalue("CSV and Scilab parameters", labels, dat, values);
     
     if ok == %F then  
         exitID = -2; // canceled parameter box
         return;
     end
-    
+    //pause;
+    // Checking input
+    if mat_name == "" then
+        exitID = -4; // no matrix name specified => error
+        return;
+    end
+    if fld_sep == "" then
+        fld_sep = []; // field separator not specified => Standard field separator "," set
+    end
+    if dec == "" then
+        dec = []; // decimal separator not specified => standard decimal sep. "." set
+    end
    
     // Field separator
     if fld_sep == "tab" then 
@@ -72,7 +85,11 @@ function [exitID] = writecsv_i(path)
     
     // Write CSV file in mat_name
     try
-        execstr("csvWrite(" + mat_name + ", fn, fld_sep, dec);");
+        if com == "" then // No comment committed
+            execstr("csvWrite(" + mat_name + ", fn, fld_sep, dec);");
+        else
+            execstr("csvWrite(" + mat_name + ", fn, fld_sep, dec, [], com);");
+        end
     catch
         exitID = -3; // Error while writing CSV file
         return;
