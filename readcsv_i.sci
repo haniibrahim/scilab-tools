@@ -76,12 +76,13 @@ function [csvMat, exitID] = readcsv_i(path)
     end
     
     // Read CSV file in mat_name
+    substitute = ['""',''; '''','']; // Ignore quotes
     try
-        execstr("csvMat = csvRead(fn, fld_sep, dec, [], [], [], [], headernum);");
+        execstr("csvMat = csvRead(fn, fld_sep, dec, [], substitute, [], [], headernum);");
         // Setup range
         execstr("csvMat = csvMat(" + rowRange + "," + colRange + ")");
     catch
-        exitID = -3; // Error while interpreting XLS file
+        exitID = -3; // Error while interpreting CSV file
         return;
     end
 

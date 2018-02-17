@@ -86,9 +86,9 @@ function [exitID] = writecsv_i(mat_name, path)
     // Write CSV file in mat_name
     try
         if com == "" then // No comment committed
-            execstr("csvWrite(" + mat_name + ", fn, fld_sep, dec);");
+            execstr("csvWrite(mat_name, fn, fld_sep, dec);");
         else
-            execstr("csvWrite(" + mat_name + ", fn, fld_sep, dec, [], com);");
+            execstr("csvWrite(mat_name, fn, fld_sep, dec, [], com);");
         end
     catch
         exitID = -3; // Error while writing CSV file
