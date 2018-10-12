@@ -78,7 +78,21 @@ function [csvMat, exitID] = readcsv_i(path)
     // Read CSV file in mat_name
     substitute = ['""',''; '''','']; // Ignore quotes
     try
-        execstr("csvMat = csvRead(fn, fld_sep, dec, [], substitute, [], [], headernum);");
+        // if data file contains blanks as separator
+        if fld_sep == ascii(32) then 
+            fid = mopen(fn, "r");
+            csvMat = mgetl(fid); // Read data as lines of strings in a matrix of strings
+            csvMat = csvMat(headernum+1:$,:); // Crop header lines
+            mclose(fid);
+            fid = mopen(TMPDIR + "/tmp.dat.txt","wt");
+            mfprintf(fid, "%s\n", csvMat); // write header-purged temporary file
+            csvMat=fscanfMat(TMPDIR + "/tmp.dat.txt"); // read temporary file in matrix variable
+            mclose(fid);
+            mdelete(TMPDIR + "/tmp.dat.txt"); // clean up
+        // if data file contains NO blanks as separator         
+        else 
+            execstr("csvMat = csvRead(fn, fld_sep, dec, [], substitute, [], [], headernum);");
+        end
         // Setup range
         execstr("csvMat = csvMat(" + rowRange + "," + colRange + ")");
     catch
