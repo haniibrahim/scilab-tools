@@ -15,6 +15,7 @@ function [csvMat, exitID] = readcsv_i(path)
     //          -1: Canceled file selection
     //          -2: Canceled parameter dialog box
     //          -3: Cannot read or interpret CSV file
+    //          -4: Cannot interpret file correctly - maybe header present
     // 
     // DESCRIPTION
     // Read an comma-separated-value (CSV) file interactively. You can specify: 
@@ -34,6 +35,11 @@ function [csvMat, exitID] = readcsv_i(path)
 
     inarg = argn(2);
     if inarg > 1 then error(39); end
+    
+    function errorCleanUp()
+        csvMat = []; 
+        mclose("all");
+    endfunction
 
     // init values
     exitID = 0; // All OK
@@ -64,9 +70,9 @@ function [csvMat, exitID] = readcsv_i(path)
 
     while %T do    
         // Get some parameters for interpreting the csv file and the name of the output matrix
-        
+
         headernum = string(headernum); // "values=[]" has to be string matrix even when headernum is in "list" declared as "vec"
-        
+
         labels=["Field separator: , | ; | tab | space"; "Decimal separator: . | ,"; "Number of header lines to skip"; "Row Range, e.g. 2:5 (2nd to 5th row) or 2 (2nd row only) or : (all rows)"; "Column range, e.g. 1:3 (1st to 3rd col.) or 2 (2nd col. only) or : (all columns)"];
         dat=list("str", 1, "str", 1, "vec", 1, "str", 1, "str", 1);
         values=[fld_sep; dec; headernum; rowRange; colRange];
@@ -82,7 +88,7 @@ function [csvMat, exitID] = readcsv_i(path)
         if rowRange == "" then rowRange = ":"; end
         if colRange == "" then colRange = ":"; end
         if fld_sep ~= "," & fld_sep ~= ";" & fld_sep ~= "tab" & fld_sep ~= "space" then
-            messagebox("Field delimiter is empty. Try again", "Error", "error", "modal")
+            messagebox("Field delimiter is empty or wrong. Try again", "Error", "error", "modal")
             //fld_sep = ",";
             continue;
         elseif dec ~= "," & dec ~= "." then
@@ -106,14 +112,20 @@ function [csvMat, exitID] = readcsv_i(path)
     try
         // if data file contains blanks as separator
         if fld_sep == ascii(32) then 
-            fid = mopen(fn, "r");
-            csvMat = mgetl(fid); // Read data as lines of strings in a matrix of strings
+            fid1 = mopen(fn, "r");
+            csvMat = mgetl(fid1); // Read data as lines of strings in a matrix of strings
             csvMat = csvMat(headernum+1:$,:); // Crop header lines
-            mclose(fid);
-            fid = mopen(TMPDIR + "/tmp.dat.txt","wt");
-            mfprintf(fid, "%s\n", csvMat); // write header-purged temporary file
-            csvMat=fscanfMat(TMPDIR + "/tmp.dat.txt"); // read temporary file in matrix variable
-            mclose(fid);
+            mclose(fid1);
+            fid2 = mopen(TMPDIR + "/tmp.dat.txt","wt");
+            mfprintf(fid2, "%s\n", csvMat); // write header-purged temporary file
+            mclose(fid2);
+            try
+                csvMat=fscanfMat(TMPDIR + "/tmp.dat.txt"); // read temporary file in matrix variable
+            catch
+                exitID = -4; 
+                errorCleanUp();
+                return;
+            end
             mdelete(TMPDIR + "/tmp.dat.txt"); // clean up
             // if data file contains NO blanks as separator         
         else 
@@ -123,6 +135,7 @@ function [csvMat, exitID] = readcsv_i(path)
         execstr("csvMat = csvMat(" + rowRange + "," + colRange + ")");
     catch
         exitID = -3; // Error while interpreting CSV file
+        errorCleanUp();
         return;
     end
 
