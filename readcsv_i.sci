@@ -49,7 +49,7 @@ function [csvMat, exitID] = readcsv_i(path)
     end
     
     // Get filename incl. path of an CSV file
-    fn=uigetfile(["*.csv","Comma Separated Value files (*.csv)"],path,"Choose a csv-file")
+    fn=uigetfile(["*.csv|*.txt|*.dat","Data text files (*.csv, *.txt, *.dat)"],path,"Choose a csv-file");
     if fn == "" then
         exitID = -1; // Canceled file selector
         return;
