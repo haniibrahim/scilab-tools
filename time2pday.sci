@@ -4,7 +4,6 @@ function [part] = time2pday(time)
     //
     // CALLING SEQUENCES
     // pday = time2pday(time)
-    // pday = time2pday(h m s)
     //
     // PARAMETERS
     // time: [h m s] matrix
@@ -18,7 +17,10 @@ function [part] = time2pday(time)
     // ans = 0.5
     //
     inarg = argn(2);
-    if inarg < 1 then error("Commit a number between 0 and 1"); end
+    if inarg < 1 then error("Commit a vector [hours minutes seconds]"); end
+    // Extent time vecor, if needed
+    if length(time) == 2 then time = [time 0]; end
+    if length(time) == 1 then time = [time 0 0]; end
     
     h = time(:,1);
     m = time(:,2);

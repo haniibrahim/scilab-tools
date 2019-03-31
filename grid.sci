@@ -1,12 +1,12 @@
-function grid(switch)
+function grid(sw)
     //
     // Switch grid on or off
     //
     // CALLING SEQUENCES
-    // grid(switch)
+    // grid(sw)
     //
     // PARAMETERS
-    // switch: 0, %F => Grid off
+    // sw: 0, %F => Grid off
     //         1, %T => Grid on
     //
     // EXAMPLES:
@@ -17,9 +17,9 @@ function grid(switch)
     // Checking args
     inarg = argn(2);
     if inarg < 1 | inarg > 1 then error("Commit just one argument, only"); end
-    if switch == %T | switch == 1 then
+    if sw == %T | sw == 1 then
         set(gca(),"grid",[1 1]); // Grid on
-    elseif switch == %F | switch == 0 then
+    elseif sw == %F | sw == 0 then
         set(gca(),"grid",[-1 -1]); // Grid off
     else
         error("Wrong type of argument");
