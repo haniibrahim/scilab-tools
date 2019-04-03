@@ -29,8 +29,11 @@ function [x1,x2] = pqform(p, q)
     // x1 = -1 - 2.i
     // x2 = -1 + 2.i
     // 
-    inarg = argn(2);
-    if inarg > 2 | inarg < 2 then error("Commit p and q"); end
+    
+    [lhs,rhs]=argn()
+    apifun_checkrhs("pqform", rhs, 2); // Input args
+    apifun_checklhs("pqform", lhs, 2); // Output args
+    
     
     t1 = p ./ 2;
     t2 = (t1) .^2 - q;

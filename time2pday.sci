@@ -16,8 +16,12 @@ function [part] = time2pday(time)
     // time2pday([12 0 0])
     // ans = 0.5
     //
-    inarg = argn(2);
-    if inarg < 1 then error("Commit a vector [hours minutes seconds]"); end
+    
+    [lhs,rhs]=argn()
+    apifun_checkrhs("time2pday", rhs, 1); // Input args
+    apifun_checklhs("time2pday", lhs, 1); // Output args
+    apifun_checkvector("time2pday", time, "time", 1);
+    
     // Extent time vecor, if needed
     if length(time) == 2 then time = [time 0]; end
     if length(time) == 1 then time = [time 0 0]; end

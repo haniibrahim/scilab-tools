@@ -14,9 +14,11 @@ function [g]=gcd(a, b)
     // EXAMPLES
     // [g] = gcd(1920,1080)
     //
-    inarg = argn(2); // number of parameters/arguments
-    if inarg < 2 | inarg > 2 then error(39); end
-
+    
+    [lhs,rhs]=argn()
+    apifun_checkrhs("gcd", rhs, 2); // Input args
+    apifun_checklhs("gcd", lhs, 1); // Output args
+    
     if a == 0 then 
         g = b;
         return; 

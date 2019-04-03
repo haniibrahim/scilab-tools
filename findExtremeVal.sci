@@ -15,8 +15,9 @@ function [ev_x, ev_y] = findExtremeVal(x,y)
     // EXAMPLES
     // [ev_x, ev_y] = findExtremeVal(x,y)
     //
-    inarg = argn(2); // number of parameters/arguments
-    if inarg < 2 | inarg > 2 then error(39); end
+    [lhs,rhs]=argn()
+    apifun_checkrhs("findExtremeVal", rhs, 2); // Input args
+    apifun_checklhs("findExtremeVal", lhs, 2); // Output args
     
     // 1st numerical derivation
     deriv_y = diff(y)./diff(x); 

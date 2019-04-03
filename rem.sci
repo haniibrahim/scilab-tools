@@ -16,8 +16,10 @@ function [retval] = rem(x, y)
     //
 
     // Checking args
-    inarg = argn(2);
-    if inarg < 2 then error("Need 2 arguments"); end
+    [lhs,rhs]=argn()
+    apifun_checkrhs("rem", rhs, 2); // Input args
+    apifun_checklhs("rem", lhs, 1); // Output args
+
     if ~isnum(string(x)) | ~isnum(string(y)) then
         error("Commit numbers, only");
     end

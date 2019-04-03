@@ -25,8 +25,10 @@ function [exitID] = writecsv_i(mat_name, path)
     // writecsv_i("a");
     //
     
-    inarg = argn(2);
-    if inarg > 2 | inarg < 1 then error(39); end
+    [lhs,rhs]=argn()
+    apifun_checkrhs("writecsv_i", rhs, 1:2); // Input args
+    apifun_checklhs("writecsv_i", lhs, 1); // Output args
+
     
     // init values
     exitID = 0; // All OK

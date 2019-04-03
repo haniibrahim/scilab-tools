@@ -15,8 +15,10 @@ function [ip_x, ip_y] = findInflecPts(x,y)
     // EXAMPLES
     // [ip_x, ip_y] = findInflecPts(x,y)
     //
-    inarg = argn(2); // number of parameters/arguments
-    if inarg < 2 | inarg > 2 then error(39); end
+    
+    [lhs,rhs]=argn()
+    apifun_checkrhs("findInflecPts", rhs, 2); // Input args
+    apifun_checklhs("findInflecPts", lhs, 2); // Output args
     
     // 1st numerical derivation
     deriv_y = diff(y)./diff(x); 

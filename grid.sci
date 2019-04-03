@@ -15,8 +15,9 @@ function grid(sw)
     //
     
     // Checking args
-    inarg = argn(2);
-    if inarg < 1 | inarg > 1 then error("Commit just one argument, only"); end
+    [lhs,rhs]=argn()
+    apifun_checkrhs("grid", rhs, 1); // Input args    
+    
     if sw == %T | sw == 1 then
         set(gca(),"grid",[1 1]); // Grid on
     elseif sw == %F | sw == 0 then

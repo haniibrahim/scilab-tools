@@ -32,6 +32,9 @@ function [xlsMat, exitID] = readxls_i(path)
     // xlsMat = readxls_i()
     //
     
+    [lhs,rhs]=argn()
+    apifun_checkrhs("readxls_i", rhs, 1); // Input args
+    apifun_checklhs("readxls_i", lhs, 2); // Output args
     inarg = argn(2);
     if inarg > 1 then error(39); end
     

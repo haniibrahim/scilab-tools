@@ -13,11 +13,11 @@ function [time] = pday2time(part)
     // pday2time(0.5)
     // ans = 12 0 0
     //
-    inarg = argn(2);
-    if inarg > 1 | inarg == 0 then error("Commit a number between 0 and 1"); end
-    if type(part) ~= 1 | (part > 1 & part < 0)  then
-        error("Committed argument has to be a number and >=0 and <=1");
-    end
+    [lhs,rhs]=argn()
+    apifun_checkrhs("pday2time", rhs, 1); // Input args
+    apifun_checklhs("pday2time", lhs, 1); // Output args
+    apifun_checkrange("pday2time", part, "part", 1, 0, 1); // Output args
+    
     h = 24 .* part;
     m = 60 .* (h - floor(h));
     s = 60 .* (m - floor(m));

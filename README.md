@@ -14,7 +14,8 @@ Provide documentation in function's header which are [uman](https://atoms.scilab
 ## Dependencies
 
 * [Scilab](http://www.scilab.org/) Application (tested with v5.5.2) 
-* [uman](https://atoms.scilab.org/toolboxes/uman/2.1)  Toolbox (Recommended but not mandatory)
+* [apifun] (https://atoms.scilab.org/toolboxes/apifun) Toolbox
+* [uman](https://atoms.scilab.org/toolboxes/uman)  Toolbox (Recommended but not mandatory)
 
 
 ## Licence

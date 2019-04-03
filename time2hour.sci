@@ -16,8 +16,15 @@ function [hour] = time2hour(time)
     // EXAMPLES
     // time2hour([12 0 0])
     //
-    inarg = argn(2);
-    if inarg < 1 then error("Commit a number between 0 and 1"); end
+    
+    [lhs,rhs]=argn()
+    apifun_checkrhs("time2hour", rhs, 1); // Input args
+    apifun_checklhs("time2hour", lhs, 1); // Output args
+    apifun_checkvector("time2hour", time, "time", 1);
+    
+    // Extent time vecor, if needed
+    if length(time) == 2 then time = [time 0]; end
+    if length(time) == 1 then time = [time 0 0]; end
     
     h = time(:,1);
     m = time(:,2);

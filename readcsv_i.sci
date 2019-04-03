@@ -32,9 +32,10 @@ function [csvMat, exitID] = readcsv_i(path)
     // [csvMat, exitID] = readcsv_i(pwd()) // Open the file selector in the currend directory
     // csvMat = readcsv_i()
     //
-
-    inarg = argn(2);
-    if inarg > 1 then error(39); end
+    
+    [lhs,rhs]=argn()
+    apifun_checkrhs("readcvs_i", rhs, 1); // Input args
+    apifun_checklhs("readcvs_i", lhs, 2); // Output args
     
     function errorCleanUp()
         csvMat = []; 

@@ -31,5 +31,10 @@ function [y] = interpolation(x1, x2, y1, y2, x)
     //
     // y = interpolation(1, 3, 5, 7, 2)
     //
+    
+    [lhs,rhs]=argn()
+    apifun_checkrhs("interpolation", rhs, 5); // Input args
+    apifun_checklhs("interpolation", lhs, 1); // Output args
+    
     y=y1 + ((y2-y1) ./ (x2-x1)) .* (x-x1);
 endfunction

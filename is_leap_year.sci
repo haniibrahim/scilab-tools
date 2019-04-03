@@ -20,8 +20,9 @@ function [leapYear] = is_leap_year(year)
     //
     
     // Check committed argument
-    inarg = argn(2);
-    if inarg > 1 | inarg < 1 then error("Wrong amount of parameters"); end
+    [lhs,rhs]=argn()
+    apifun_checkrhs("is_leap_year", rhs, 1); // Input args
+    apifun_checklhs("is_leap_year", lhs, 1); // Output args
 
     // Leap year
     // - Every 4th year is a leap year
