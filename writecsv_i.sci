@@ -11,11 +11,11 @@ function [exitID] = writecsv_i(mat_name, path)
     // path:    Path at which the file selector points to first (OPTIONAL)
     //          If not commited the HOME/USERPROFILE directory is used
     // exitID:  Exit#
-    //           0: Everything is OK
-    //          -1: Canceled file selection
-    //          -2: Canceled parameter dialog box
-    //          -3: Cannot write CSV file
-    //          -4: No matrix name specified
+    //           0: Everything is OK 
+    //          -1: Canceled file selection 
+    //          -2: Canceled parameter dialog box 
+    //          -3: Cannot write CSV file 
+    //          -4: No matrix name specified 
     // 
     // DESCRIPTION
     // Write a given numerical matrix to an CSV-file interactively. 

@@ -3,14 +3,10 @@ function [hour] = time2hour(time)
     // Convert time to a number of hour
     //
     // CALLING SEQUENCES
-    // hour = time2hour(time)
     // hour = time2hour([h m s])
     //
     // PARAMETERS
-    // time: [h m s] matrix
-    // h: hour as int
-    // m: minute as int
-    // s: second as double
+    // time: [h m s] 1-by-m matrix, h=hour(floating point integer), m=minute (floating point integer), s=second (double)
     // hour: number of hour
     //
     // EXAMPLES
@@ -21,6 +17,7 @@ function [hour] = time2hour(time)
     apifun_checkrhs("time2hour", rhs, 1); // Input args
     apifun_checklhs("time2hour", lhs, 1); // Output args
     apifun_checkvector("time2hour", time, "time", 1);
+    apifun_checktype("tme2hour", time, "time", 1, ["constant"])
     
     // Extent time vecor, if needed
     if length(time) == 2 then time = [time 0]; end

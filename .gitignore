@@ -1,5 +1,5 @@
 *.bin
 lib
-names
+names*
 *.swp
 .DS_Store

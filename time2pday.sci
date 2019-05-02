@@ -21,6 +21,7 @@ function [part] = time2pday(time)
     apifun_checkrhs("time2pday", rhs, 1); // Input args
     apifun_checklhs("time2pday", lhs, 1); // Output args
     apifun_checkvector("time2pday", time, "time", 1);
+    apifun_checktype("tme2hour", time, "time", 1, ["constant"])
     
     // Extent time vecor, if needed
     if length(time) == 2 then time = [time 0]; end

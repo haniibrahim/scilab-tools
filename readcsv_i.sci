@@ -34,8 +34,8 @@ function [csvMat, exitID] = readcsv_i(path)
     //
     
     [lhs,rhs]=argn()
-    apifun_checkrhs("readcvs_i", rhs, 1); // Input args
-    apifun_checklhs("readcvs_i", lhs, 2); // Output args
+    apifun_checkrhs("readcvs_i", rhs, 0:1); // Input args
+    apifun_checklhs("readcvs_i", lhs, 1:2); // Output args
     
     function errorCleanUp()
         csvMat = []; 

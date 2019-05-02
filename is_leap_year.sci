@@ -1,6 +1,6 @@
 function [leapYear] = is_leap_year(year)
     //
-    // Calculates whether the committed year is a leap year or not.
+    // Calculates whether the committed year is a leap year or not. 
     // (Same nomenclatur as in Matlab/Octave)
     // 
     // CALLING SEQUENCES
@@ -12,17 +12,18 @@ function [leapYear] = is_leap_year(year)
     //            and FALSE if not.
     // 
     // EXAMPLES
-    // is_leap_year(2000)
-    // ans = T
-    // 
-    // is_leap_year(1900)
-    // ans = F
-    //
+    // is_leap_year(2000) // ans = T
+    // is_leap_year(1900) // ans = F
     
     // Check committed argument
     [lhs,rhs]=argn()
-    apifun_checkrhs("is_leap_year", rhs, 1); // Input args
+    apifun_checkrhs("is_leap_year", rhs, 0:1); // Input args
     apifun_checklhs("is_leap_year", lhs, 1); // Output args
+    
+    if rhs == 0 then
+        curDate = clock;
+        year = curDate(1); 
+    end
 
     // Leap year
     // - Every 4th year is a leap year

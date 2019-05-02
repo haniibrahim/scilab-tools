@@ -5,7 +5,7 @@ My Scilab tools.
 > Developed just for my own needs. Under permanent development. Use it if you find it helpful. No warranty, no service but bug reports welcome.
 
 ## Installation
-For Installation use the [library functionality](https://help.scilab.org/doc/5.3.3/en_US/lib.html "") of Scilab.
+For Installation use the [library functionality](https://help.scilab.org/doc/5.5.2/en_US/section_b0e75452c88728d23bbe1cbd7fad7b12.html "") of Scilab or look at file `MAKE_LIB.sce` in this distribution.
 
 ## Dokumentation
 
