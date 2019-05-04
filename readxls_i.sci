@@ -69,10 +69,10 @@ function [xlsMat, exitID] = readxls_i(path)
 
     // Get some parameters for interpreting the csv file and the name of the output matrix
     labels=["Sheet#"; "Row range, e.g. 2:5 (2nd to 5th row) or 2 (2nd row only) or : (all rows)"; "Column range, e.g. 1:3 (1st to 3rd col.) or 2 (2nd col. only) or : (all colums)"];
-    dat=list("vec", 1, "str", 1, "str", 1);
+    datlist=list("vec", 1, "str", 1, "str", 1);
     values=["1"; ":"; ":"];
 
-    [ok, sheetNo, rowRange, colRange] = getvalue("Parameters", labels, dat, values);
+    [ok, sheetNo, rowRange, colRange] = getvalue("Parameters", labels, datlist, values);
 
     if ok == %F then  
         exitID = -2; // canceled parameter box

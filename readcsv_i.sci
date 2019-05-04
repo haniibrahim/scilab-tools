@@ -75,10 +75,10 @@ function [csvMat, exitID] = readcsv_i(path)
         headernum = string(headernum); // "values=[]" has to be string matrix even when headernum is in "list" declared as "vec"
 
         labels=["Field separator: , | ; | tab | space"; "Decimal separator: . | ,"; "Number of header lines to skip"; "Row Range, e.g. 2:5 (2nd to 5th row) or 2 (2nd row only) or : (all rows)"; "Column range, e.g. 1:3 (1st to 3rd col.) or 2 (2nd col. only) or : (all columns)"];
-        dat=list("str", 1, "str", 1, "vec", 1, "str", 1, "str", 1);
+        datlist=list("str", 1, "str", 1, "vec", 1, "str", 1, "str", 1);
         values=[fld_sep; dec; headernum; rowRange; colRange];
 
-        [ok, fld_sep, dec, headernum, rowRange, colRange] = getvalue("CSV and Scilab parameters", labels, dat, values);
+        [ok, fld_sep, dec, headernum, rowRange, colRange] = getvalue("CSV and Scilab parameters", labels, datlist, values);
 
         if ok == %F then  
             exitID = -2; // canceled parameter box

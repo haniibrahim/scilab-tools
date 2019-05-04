@@ -56,10 +56,10 @@ function [exitID] = writecsv_i(mat_name, path)
     
     // Get some parameters for interpreting the csv file and the name of the output matrix
     labels=["Field separator: , | ; | tab | space"; "Decimal separator: . | ,";"Comment header"];
-    dat=list("str", 1, "str", 1, "str", 1);
+    datlist=list("str", 1, "str", 1, "str", 1);
     values=[","; "."; ""];
 
-    [ok, fld_sep, dec, com] = getvalue("CSV and Scilab parameters", labels, dat, values);
+    [ok, fld_sep, dec, com] = getvalue("CSV and Scilab parameters", labels, datlist, values);
     
     if ok == %F then  
         exitID = -2; // canceled parameter box
