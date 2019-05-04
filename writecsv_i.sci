@@ -7,7 +7,7 @@ function [exitID] = writecsv_i(mat_name, path)
     // [exitID] = readcsv_i(mat_name)
     //
     // PARAMETERS
-    // mat_name:Name of the matrix variable you want to store in a csv-file
+    // mat_name:Character string of the matrix variable you want to store in a csv-file
     // path:    Full path at which the file selector points to first (OPTIONAL)
     //          If not commited the HOME/USERPROFILE directory is used
     // exitID:  Exit#
@@ -21,13 +21,15 @@ function [exitID] = writecsv_i(mat_name, path)
     // Write a given numerical matrix to an CSV-file interactively. 
     //
     // EXAMPLES
-    // [exitID] = writecsv_i(a, pwd()) // Open the file selector in the currend directory
-    // writecsv_i(a);
+    // [exitID] = writecsv_i("a", pwd()) // Open the file selector in the currend directory
+    // writecsv_i("a");
     //
     
     [lhs,rhs]=argn()
     apifun_checkrhs("writecsv_i", rhs, 1:2); // Input args
-    apifun_checklhs("writecsv_i", lhs, 1); // Output args
+    apifun_checklhs("writecsv_i", lhs, 1);   // Output args
+    apifun_checktype("writecsv_i", mat_name, "mat_name", 1,"string");
+    apifun_checktype("writecsv_i", path, "path", 2,"string");
 
     
     // init values
@@ -88,9 +90,9 @@ function [exitID] = writecsv_i(mat_name, path)
     // Write CSV file in mat_name
     try
         if com == "" then // No comment committed
-            execstr("csvWrite(mat_name, fn, fld_sep, dec);");
+            execstr("csvWrite("+ mat_name + ", fn, fld_sep, dec);");
         else
-            execstr("csvWrite(mat_name, fn, fld_sep, dec, [], com);");
+            execstr("csvWrite(" + mat_name + ", fn, fld_sep, dec, [], com);");
         end
     catch
         exitID = -3; // Error while writing CSV file
