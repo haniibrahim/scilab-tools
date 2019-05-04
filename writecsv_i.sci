@@ -7,8 +7,8 @@ function [exitID] = writecsv_i(mat_name, path)
     // [exitID] = readcsv_i(mat_name)
     //
     // PARAMETERS
-    // mat_name:Name of the matrix variable you want to store in a csv-file in ""
-    // path:    Path at which the file selector points to first (OPTIONAL)
+    // mat_name:Name of the matrix variable you want to store in a csv-file
+    // path:    Full path at which the file selector points to first (OPTIONAL)
     //          If not commited the HOME/USERPROFILE directory is used
     // exitID:  Exit#
     //           0: Everything is OK 
@@ -21,8 +21,8 @@ function [exitID] = writecsv_i(mat_name, path)
     // Write a given numerical matrix to an CSV-file interactively. 
     //
     // EXAMPLES
-    // [exitID] = writecsv_i("a", pwd()) // Open the file selector in the currend directory
-    // writecsv_i("a");
+    // [exitID] = writecsv_i(a, pwd()) // Open the file selector in the currend directory
+    // writecsv_i(a);
     //
     
     [lhs,rhs]=argn()
