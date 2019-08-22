@@ -1,23 +1,23 @@
-function [g]=gcd(a, b)
+function [g]=gcdivisor(a, b)
     //
-    // Determine the greates common divisor GCD
+    // Determine the greates common divisor gcdivisor
     //
     // CALLING SEQUENCES
-    // [g] = gcd(a,b)
+    // [g] = gcdivisorivisor(a,b)
     //
     // PARAMETERS
     // a: values as a numerical vector
     // b: values as a numerical vector
     //
-    // g: Greates common divisor GCD of a and b
+    // g: Greates common divisor gcdivisor of a and b
     // 
     // EXAMPLES
-    // [g] = gcd(1920,1080)
+    // [g] = gcdivisor(1920,1080)
     //
     
     [lhs,rhs]=argn()
-    apifun_checkrhs("gcd", rhs, 2); // Input args
-    apifun_checklhs("gcd", lhs, 1); // Output args
+    apifun_checkrhs("gcdivisor", rhs, 2); // Input args
+    apifun_checklhs("gcdivisor", lhs, 1); // Output args
     
     if a == 0 then 
         g = b;
