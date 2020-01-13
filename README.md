@@ -13,7 +13,7 @@ Provide documentation in function's header which are [uman](https://atoms.scilab
 
 ## Dependencies
 
-* [Scilab](http://www.scilab.org/) Application (tested with v5.5.2 and 6.0.1) 
+* [Scilab](http://www.scilab.org/) Application (tested with v5.5.2 to 6.0.2) 
 * [apifun](https://atoms.scilab.org/toolboxes/apifun) Toolbox
 * [uman](https://atoms.scilab.org/toolboxes/uman)  Toolbox (Recommended but not mandatory)
 

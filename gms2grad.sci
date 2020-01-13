@@ -26,7 +26,7 @@ function [deg] = gms2grad(dms)
     //
 
     
-    [lhs,rhs]=argn()
+    [lhs,rhs]=argn();
     apifun_checkrhs("dms2grad", rhs, 1); // Input args
     apifun_checklhs("dms2grad", lhs, 1); // Output args
     
