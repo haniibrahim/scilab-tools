@@ -1,9 +1,9 @@
 function peaks = peakDetect(signal, threshold)
-    // Return the position of the peaks of a signal
+    // Returns the position of the peaks of a signal
     //
     // Calling Sequence
-    //   peaks = peakDetect(signal)
-    //   peaks = peakDetect(signal, threshold)
+    // peaks = peakDetect(signal)
+    // peaks = peakDetect(signal, threshold)
     //
     // Parameters
     // signal:    Nx1 or 1xN vector of values
@@ -89,6 +89,8 @@ function peaks = peakDetect(signal, threshold)
     // disp(x(peaks), "Peaks: ") // Lists  peak frequency-values
     //
     // See also
+    // findExtremeVal
+    // findInflecPts
     //
     // Authors
     //  Hani Ibrahim ; hani.ibrahim@gmx.de based on peak_detect from

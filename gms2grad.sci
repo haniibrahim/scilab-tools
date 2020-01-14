@@ -2,7 +2,7 @@ function [deg] = gms2grad(dms)
     // Convert angle from degree° arcmininute' arcsecond" to decimal degree
     //
     // Calling Sequence
-    //   [deg] = gms2grad(dms)
+    // [deg] = gms2grad(dms)
     //
     // Parameters
     // dms: angle as a vector or matrix in the form [deg arcmin arcsec]
@@ -12,7 +12,7 @@ function [deg] = gms2grad(dms)
     // Convert an angle from dms-form, e.g. 12° 33' 12.4" ([12 33 12.4]) 
     // to decimal degree, e.g. 12.553444.
     //
-    // gms2grad can handle matrices of dms' (see examples).
+    // Matrix-capable.
     //
     // Examples
     // [deg1] = gms2grad([12 33 12.4]) // 12° 33' 12.4"
@@ -24,11 +24,11 @@ function [deg] = gms2grad(dms)
     // Authors
     //  Hani Ibrahim ; hani.ibrahim@gmx.de
     //
-
-    
+   
     [lhs,rhs]=argn();
-    apifun_checkrhs("dms2grad", rhs, 1); // Input args
-    apifun_checklhs("dms2grad", lhs, 1); // Output args
+    apifun_checkrhs("gms2grad", rhs, 1); // Input args
+    apifun_checklhs("gms2grad", lhs, 1); // Output args
+    apifun_checktype("gms2grad", dms, "dms", 1, ["constant"]);
     
     // Dimension of dms, for later vector or matrix checking?
     d = size(dms);

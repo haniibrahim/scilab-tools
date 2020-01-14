@@ -1,24 +1,39 @@
 function [ip_x, ip_y] = findInflecPts(x,y)
+    // Returns points of inflection of a numerical data
     //
-    // Find points of inflection of a numerical data
+    // Calling Sequence
+    // ip_x, ip_y] = findInflecPts(x,y)
     //
-    // CALLING SEQUENCES
-    // [ip_x, ip_y] = findInflecPts(x,y)
+    // Parameters
+    // x:    1xN or Nx1 vector of x-values
+    // y:    1xN or Nx1 vector of y-values
+    // ip_x: 1xN or Nx1 vector of x-Value(s) of point(s) of inflection
+    // ip_y: 1xN or Nx1 vector of y-Value(s) of point(s) of inflection
     //
-    // PARAMETERS
-    // x:    x-values as a numerical vector
-    // y:    y-values as a numerical vector
+    // Description
+    // Calculates all inflection points of committed data. 
     //
-    // ip_x: x-Value(s) of the point(s) of inflection
-    // ip_y: y-Value(s) of the point(s) of inflection
-    // 
-    // EXAMPLES
-    // [ip_x, ip_y] = findInflecPts(x,y)
+    // Examples
+    // x=linspace(-%pi,%pi,100);
+    // y=sin(x);
+    // [ip_x, ip_y] = findInflecPts(x,y);
+    // disp(ip_y, "Inflection points Y:", ip_x,"Inflection points X:")
+    // plot(x,y);          // Plot data
+    // Plot(ip_x,ip_y,"rx"); // Plot Inflection points in data plot
     //
+    // See also
+    // findExtremeVal
+    //
+    // Authors
+    //  Hani Ibrahim ; hani.ibrahim@gmx.de 
     
     [lhs,rhs]=argn()
     apifun_checkrhs("findInflecPts", rhs, 2); // Input args
     apifun_checklhs("findInflecPts", lhs, 2); // Output args
+    apifun_checkvector("findInflecPts", x, "x", 1);
+    apifun_checkvector("findInflecPts", y, "y", 1);
+    apifun_checktype("findInflecPts", x, "x", 1, "constant");
+    apifun_checktype("findInflecPts", y, "y", 2, "constant");
     
     // 1st numerical derivation
     deriv_y = diff(y)./diff(x); 
