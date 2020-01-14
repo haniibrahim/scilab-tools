@@ -2,7 +2,7 @@ function [dms] = grad2gms(deg)
     // Convert angle from decimal degree to degree° arcmininute' arcsecond"  
     //
     // Calling Sequence
-    //   [dms] = grad2gms(deg)
+    // [dms] = grad2gms(deg)
     //
     // Parameters
     // deg: angle as a scalar in decimal degree
@@ -12,7 +12,7 @@ function [dms] = grad2gms(deg)
     // Convert an angle from decimal degree, e.g. 12.553444 to dms-form, e.g. 
     // 12° 33' 12.4" ([12 33 12.4]) 
     //
-    // grad2gms can handle matrices of deg' (see examples).
+    // Matrix-capable.
     //
     // Examples
     // [dms1] = grad2gms(12,55)

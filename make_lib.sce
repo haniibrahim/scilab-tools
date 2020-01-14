@@ -4,7 +4,6 @@
 // against "clear". Use "predef" for protection.
 // In general you just have to execute the genlib command once and put the
 // lib-command-line into your startfile as ".scilab" or "scilab.ini".
- 
 path=(get_absolute_file_path("make_lib.sce")); // platform idependend path to this script
 unix("ls -1 *.sci >names")
 mdelete(path +'lib'); // delete old library files

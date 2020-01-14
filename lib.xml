@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<scilablib name="HI_tools">
+  <macro name="findExtremeVal" file="findExtremeVal.bin" md5="ff48d767055adb9f7577150ba075f8f4"/>
+  <macro name="findInflecPts" file="findInflecPts.bin" md5="6782ca87415ba18ceb0313a299e1158c"/>
+  <macro name="getCsvFn" file="getCsvFn.bin" md5="511ce4e5e44ab748dc0f2a1ce4183251"/>
+  <macro name="getFn" file="getFn.bin" md5="732072f6058cdcf67283a1f58b095d2c"/>
+  <macro name="gms2grad" file="gms2grad.bin" md5="b2da7be227f2d9d1586f9f31b32d6cda"/>
+  <macro name="grad2gms" file="grad2gms.bin" md5="a17af7ac8b8e750b09bd8432e1d272f5"/>
+  <macro name="grid" file="grid.bin" md5="4c256fdf999d9af59715e7a2319c0b6a"/>
+  <macro name="interpolation" file="interpolation.bin" md5="c6fe50ceac73a884c0e42c32b897190a"/>
+  <macro name="is_leap_year" file="is_leap_year.bin" md5="6f04735f084602a9ccb001d68915251e"/>
+  <macro name="newtonpoly" file="newtonpoly.bin" md5="80d3ad6905de8ebdc76114db77055b24"/>
+  <macro name="pday2time" file="pday2time.bin" md5="5defa261d3760dcd9644c424666196b8"/>
+  <macro name="peakDetect" file="peakDetect.bin" md5="620b2a31144b8108be7d55ddda7893c5"/>
+  <macro name="pqform" file="pqform.bin" md5="c83ca7d078a4158a7e519f591a91eb56"/>
+  <macro name="radDecay" file="radDecay.bin" md5="bc66095e9f4987f3bf389e4528173377"/>
+  <macro name="rem" file="rem.bin" md5="b47e32768c639eeeea8d522ec81c92a8"/>
+  <macro name="time2hour" file="time2hour.bin" md5="e76c6e18d390e21b49b603a20d0f73f3"/>
+  <macro name="time2pday" file="time2pday.bin" md5="55683c7c48f82e176605ed48b8a2a81e"/>
+</scilablib>
