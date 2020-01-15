@@ -87,5 +87,4 @@ function fn = getFn(path, filterset)
 
     // Get filename incl. path of an CSV file
     execstr("fn=uigetfile(" + filterset + " , path,""Choose a file"")");
-
 endfunction
