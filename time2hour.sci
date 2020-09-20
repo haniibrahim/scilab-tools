@@ -1,27 +1,59 @@
 function [hour] = time2hour(time)
+    // Convert time to a number of hour.
     //
-    // Convert time to a number of hour
+    // Calling Sequence
+    // [hour] = time2hour([h m s])
     //
-    // CALLING SEQUENCES
-    // hour = time2hour([h m s])
+    // Parameters
+    // time: Nx3 matrix or vector of floating point integers [hours minutes seconds]
+    // hour: Nx1 matrix (row vector) of doubles which specifies the part of a day
     //
-    // PARAMETERS
-    // time: [h m s] 1-by-m matrix, h=hour(floating point integer), m=minute (floating point integer), s=second (double)
-    // hour: number of hour
+    // Description
+    // Convert time commitet as a column vector or Nx3 matrix to floating point 
+    // number of hour(s).
     //
-    // EXAMPLES
-    // time2hour([12 0 0])
+    // Matrix-capable.
     //
-    
+    // Examples
+    // h1   = time2hour([12 0 0])
+    // [h2] = time2hour([12 0 0; 7 30 15.5; 22 15 0])
+    //
+    // See also
+    // pday2time
+    // is_leap_year
+    // 
+    //
+    // Authors
+    // Hani Ibrahim ; hani.ibrahim@gmx.de 
+
     [lhs,rhs]=argn()
     apifun_checkrhs("time2hour", rhs, 1); // Input args
     apifun_checklhs("time2hour", lhs, 1); // Output args
-    apifun_checkvector("time2hour", time, "time", 1);
-    apifun_checktype("tme2hour", time, "time", 1, ["constant"])
+    apifun_checktype("time2hour", time, "time", 1, ["constant"]);
     
-    // Extent time vecor, if needed
-    if length(time) == 2 then time = [time 0]; end
-    if length(time) == 1 then time = [time 0 0]; end
+    // Check for Nx3 matrix
+    if size(time)(2) ~= 3 then
+        error(msprintf(_("%s: Argument #%d: Matrix with %d columns expected.\n"), "time2hour", 1, 3 ));
+    end
+    
+//    // Check fpr floating point integers at hours and minute
+//    if ~isint(time(:1)) then // hour
+//        error(msprintf("%s: Argument #%d ""hour"": Decimal integer expected.\n", "time2hour", 1));
+//    end
+//     if ~isint(time(:2)) then // minute
+//        error(msprintf("%s: Argument #%d ""minute"": Decimal integer expected.\n", "time2hour", 1));
+//    end
+    
+    // Check for the correct range of hours, minutes, seconds
+    if time(:,1) >= 24 | time (:,1) < 0 then
+        error(msprintf(_("%s: Argument #%d: Hour must be in the interval [%d, %s].\n"), "time2hour", 1, 0, "<24" ));
+    end
+    if time(:,2) >= 60 | time (:,2) < 0 then
+        error(msprintf(_("%s: Argument #%d: Minute must be in the interval [%d, %s].\n"), "time2hour", 1, 0, "<60" ));
+    end
+    if time(:,3) >= 60 | time (:,3) < 0 then
+        error(msprintf(_("%s: Argument #%d: Second must be in the interval [%d, %s].\n"), "time2hour", 1, 0, "<60" ));
+    end
     
     h = time(:,1);
     m = time(:,2);

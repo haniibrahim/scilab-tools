@@ -1,23 +1,23 @@
-function peaks = peakDetect(signal, threshold)
+function peakIdx = peakDetect(signal, threshold)
     // Returns the position of the peaks of a signal
     //
     // Calling Sequence
-    // peaks = peakDetect(signal)
-    // peaks = peakDetect(signal, threshold)
+    // peakIdx = peakDetect(signal)
+    // peakIdx = peakDetect(signal, threshold)
     //
     // Parameters
     // signal:    Nx1 or 1xN vector of values
     // threshold: 1x1 vector of the threshold value (noise floor) - OPTIONAL
-    // peaks:     Nx1 vector of peak values
+    // peakIdx:   Nx1 vector of peak values
     //
     // Description
     // For an input vector (row or column) "signal" , the function return 
     // the position of the peaks of the signal.
     //
-    // The ouput "peaks" is a row vector (size = number of peaks),
-    // "peaks" = [] if no peak is found.
+    // The ouput "peakIdx" is a row vector (size = number of peakIdx),
+    // "peakIdx" = [] if no peak is found.
     //
-    // Optional argument "threshold" eliminates the peaks under
+    // Optional argument "threshold" eliminates the peakIdx under
     // the threshold value (noise floor), 
     // e.g. min(signal)+(max(signal)-min(signal))/25;
     //
@@ -76,17 +76,17 @@ function peaks = peakDetect(signal, threshold)
     // 0.00017861916722863072];
     //
     // threshold = min(signal)+(max(signal)-min(signal))/25; // noise floor
-    // peaks = peakDetect(signal, threshold); // peak positions
-    // disp(signal(peaks),"Peak values:"); // Peak values
+    // peakIdx = peakDetect(signal, threshold); // peak positions
+    // disp(signal(peakIdx),"Peak values:"); // Peak values
     //
     // // Plot signal, peaks and threshold line with frequency scale
     // clf();
     // [r N] = size(signal);
     // x = 22050*(1:N)/N; // Frequency scale
     // plot(x,signal); // Plot signal
-    // plot(x(peaks),signal(peaks),"r.");  // Plot peaks
+    // plot(x(peakIdx),signal(peakIdx),"r.");  // Plot peaks
     // plot(x, ones(1,N)*threshold, "k-."); // Plot threshold
-    // disp(x(peaks), "Peaks: ") // Lists  peak frequency-values
+    // disp(x(peakIdx), "Peaks: ") // Lists  peak frequency-values
     //
     // See also
     // findExtremeVal
@@ -100,7 +100,10 @@ function peaks = peakDetect(signal, threshold)
     [lhs,rhs]=argn();
     apifun_checkrhs("peakDetect", rhs, 1:2); // Input args
     apifun_checklhs("peakDetect", lhs, 1); // Output arg
-    apifun_checkvector("peakDetect", signal, "signal", 1); 
+    apifun_checkvector("peakDetect", signal, "signal", 1);
+    apifun_checktype("peakDetect", signal, "signal", 1, "constant");
+    apifun_checkscalar("peakDetect", threshold,"threshold",2);
+    apifun_checktype("peakDetect", threshold,"threshold",2, "constant");
     
     // Check for row vector and convert column vector if neccessary
     [r c] = size(signal);
@@ -109,7 +112,6 @@ function peaks = peakDetect(signal, threshold)
         [r c] = size(signal); // determine new column number
     end
     
- 
     // Set threshold to minimal value if not committed
     if rhs==2 then
         apifun_checktype("peakDetect", threshold, "threshold", 1, "constant");
@@ -126,6 +128,6 @@ function peaks = peakDetect(signal, threshold)
     ddd_s=[dd_s(1),dd_s(1,1:Lg)];         // diff second shift
     Z=d_s.*dd_s;                          // diff zeros
 
-    peaks=find(((Z<0 & d_s<0)|(Z==0 & d_s<0 & ddd_s>0)) & signal>ts);
+    peakIdx=find(((Z<0 & d_s<0)|(Z==0 & d_s<0 & ddd_s>0)) & signal>ts);
         
 endfunction

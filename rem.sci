@@ -1,19 +1,31 @@
 function [retval] = rem(x, y)
+    // Returns the remaining part of a division (Matlab-compatible)
     //
-    // Remaining part of a division
+    // Calling Sequence
+    // [retval] = rem(x, y)
     //
-    // CALLING SEQUENCES
-    // retval = rem(x,y)
+    // Parameters
+    // x:      1xN or Nx1 matrix of doubles: numerator
+    // y:      1xN or Nx1 matrix of doubles: denominator
+    // retval: 1xN or Nx1 matrix of doubles: remaining part of the devision of x / y
     //
-    // PARAMETERS
-    // x:      numerator as a double
-    // y:      denominator as a double
-    // retval: remaining part of the devision of x and y
+    // Description
+    // Returns the remaining part of a division. 
     //
-    // EXAMPLES
-    // rem(5,2) // 5/2=2, remaining 1
+    // If y is greater than x, x is returned. If y is 0 "nan" is returned.  
+    // This behaviour is Matlab/Octave compatible.
     //
-
+    // Matrix capable.
+    //
+    // Examples
+    // r1   = rem(5,2) // 5/2=2, remaining 1
+    // [r2] = rem([3 6],[2 2])
+    //
+    // See also
+    //
+    // Authors
+    // Hani Ibrahim ; hani.ibrahim@gmx.de 
+    
     // Checking args
     [lhs,rhs]=argn()
     apifun_checkrhs("rem", rhs, 2); // Input args
@@ -21,11 +33,15 @@ function [retval] = rem(x, y)
     apifun_checktype("rem", x, "x", 1, "constant");
     apifun_checktype("rem", y, "y", 2, "constant");
     
-    
-//    if ~isnum(string(x)) | ~isnum(string(y)) then
-//        error("Commit numbers, only");
+//    // Check y for 0
+//    if [y] == 0 then
+//        error(msprintf(_("%s: Division by 0...\n"),"rem"));
 //    end
     
-    retval = x-fix(x./y).* y;
+    if y > x then // Check whether x is bigger than y
+        retval = x;
+    else
+        retval = x-fix(x./y).* y;
+    end
 
 endfunction

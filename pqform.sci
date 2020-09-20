@@ -1,17 +1,18 @@
 function [x1,x2] = pqform(p, q)
+    // Solve quadratic equations via p-q-formula.
     //
-    // Performs the p-q formula for solving quadratic equations
-    //
-    // CALLING SEQUENCES
+    // Calling Sequence
     // [x1, x2] = pqform(p, q)
     //
-    // PARAMETERS
-    // p: coefficient of x as a double
-    // q: constant as a double
-    // x1: result 1
-    // x2: result 2
+    // Parameters
+    // p: 1xN or Nx1 matrix od doubles: coefficient of x
+    // q: 1xN or Nx1 matrix od doubles: constant
+    // x1: 1xN or Nx1 matrix: Solution 1 of the quadratic equation(s)
+    // x2: 1xN or Nx1 matrix: Solution 2 of the quadratic equation(s)
     //
-    // DESCRIPTION
+    //<note>Row vectors recomended for p and q values, instead of column vectors.</note>
+    //
+    // Description
     // Quadratic equation has to be in the normal form as a monic
     // polynomial:
     //
@@ -20,20 +21,24 @@ function [x1,x2] = pqform(p, q)
     // Both possible results will be calculated. It handles complex 
     // numbers in the results.
     //
-    // EXAMPLES:
-    // [x1, x2] = pqform(6,9)
-    // x1 = -3
-    // x2 = -3
+    // Matrix-capable.
     //
-    // [x1, x2] = pqform(2,5)
-    // x1 = -1 - 2.i
-    // x2 = -1 + 2.i
-    // 
+    // Examples
+    // [x1, x2] = pqform(6,9)
+    // [x1, x2] = pqform([6 2] ,[9 5])
+    //
+    // See also
+    //
+    // Authors
+    // Hani Ibrahim ; hani.ibrahim@gmx.de 
     
     [lhs,rhs]=argn()
     apifun_checkrhs("pqform", rhs, 2); // Input args
     apifun_checklhs("pqform", lhs, 2); // Output args
-    
+    apifun_checktype("pqform", p, "p", 1, "constant");
+    apifun_checktype("pqform", q, "q", 2, "constant");
+    apifun_checkvector("pqform", p, "p", 1);
+    apifun_checkvector("pqform", q, "q", 1);
     
     t1 = p ./ 2;
     t2 = (t1) .^2 - q;

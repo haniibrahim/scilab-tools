@@ -19,7 +19,7 @@ function y0 = newtonpoly(x, y, x0)
     // y0 = newtonpoly([1 2 7 15], [100 101 106 109], 8)
     //
     // See also
-    // 
+    // interpolation
     //
     // Authors
     // Hani Ibrahim ; hani.ibrahim@gmx.de 

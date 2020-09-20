@@ -13,6 +13,8 @@ function [ip_x, ip_y] = findInflecPts(x,y)
     // Description
     // Calculates all inflection points of committed data. 
     //
+    // <note>Not interpolated. Low accuracy with few data points</note>
+    //
     // Examples
     // x=linspace(-%pi,%pi,100);
     // y=sin(x);
@@ -25,8 +27,8 @@ function [ip_x, ip_y] = findInflecPts(x,y)
     // findExtremeVal
     //
     // Authors
-    //  Hani Ibrahim ; hani.ibrahim@gmx.de 
-    
+    // Hani Ibrahim ; hani.ibrahim@gmx.de 
+
     [lhs,rhs]=argn()
     apifun_checkrhs("findInflecPts", rhs, 2); // Input args
     apifun_checklhs("findInflecPts", lhs, 2); // Output args
@@ -34,18 +36,18 @@ function [ip_x, ip_y] = findInflecPts(x,y)
     apifun_checkvector("findInflecPts", y, "y", 1);
     apifun_checktype("findInflecPts", x, "x", 1, "constant");
     apifun_checktype("findInflecPts", y, "y", 2, "constant");
-    
+
     // 1st numerical derivation
     deriv_y = diff(y)./diff(x); 
     xd = x(2:length(x));
-    
+
     // 2nd numerical derivation
     deriv_y2 = diff(deriv_y)./diff(xd); 
     xd2 = x(2:length(xd));
-    
+
     // find points of inflection by looking for zero points of the 2nd derivation
     delay_mult = deriv_y2(1:length(deriv_y2)-1).*deriv_y2(2:length(deriv_y2));
     ip_x = xd2(find(delay_mult < 0))
     ip_y = y(find(delay_mult <0))
-    
+
 endfunction

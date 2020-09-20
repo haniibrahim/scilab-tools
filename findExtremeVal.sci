@@ -11,7 +11,9 @@ function [ev_x, ev_y] = findExtremeVal(x,y)
     // ev_y: 1xN or Nx1 vector of y-Value(s) of the extreme value(s)
     //
     // Description
-    // Calculates all extreme values of committed data. 
+    // Calculates all extreme values of committed data.
+    //
+    // <note>Not interpolated. Low accuracy with few data points</note>
     //
     // Examples
     // x=linspace(-%pi,%pi,100);
@@ -25,7 +27,7 @@ function [ev_x, ev_y] = findExtremeVal(x,y)
     // findInflecPts
     //
     // Authors
-    //  Hani Ibrahim ; hani.ibrahim@gmx.de 
+    // Hani Ibrahim ; hani.ibrahim@gmx.de 
   
     [lhs,rhs]=argn()
     apifun_checkrhs("findExtremeVal", rhs, 2); // Input args

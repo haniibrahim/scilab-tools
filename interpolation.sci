@@ -2,7 +2,7 @@ function [y] = interpolation(x1, x2, y1, y2, x)
     // Linear interpolation between two pairs of values
     //
     // Calling Sequence
-    // y = interpolation(x1, x2, y1, y2, x)
+    // [y] = interpolation(x1, x2, y1, y2, x)
     //
     // Parameters
     // x1: Nx1 or 1xN double vector -> first x-value (x-axis)
@@ -24,15 +24,15 @@ function [y] = interpolation(x1, x2, y1, y2, x)
     // was developed entering of data is faster and easier.
     //
     // Examples
-    // y1 = interpolation(1, 3, 5, 7, 2) // yi = 6
-    // y2 = interpolation([1;2],[3;3],[5;6],[7;8],[2;3]) // column-vectors
-    // y3 = interpolation([1 2],[3 3],[5 6],[7 8],[2 3]) // row-vectors
+    // y1   = interpolation(1, 3, 5, 7, 2) // yi = 6
+    // [y2] = interpolation([1;2],[3;3],[5;6],[7;8],[2;3]) // column-vectors
+    // [y3] = interpolation([1 2],[3 3],[5 6],[7 8],[2 3]) // row-vectors
     //
     // See also
     // interpln
     //
     // Authors
-    //  Hani Ibrahim ; hani.ibrahim@gmx.de 
+    // Hani Ibrahim ; hani.ibrahim@gmx.de 
       
     [lhs,rhs]=argn()
     apifun_checkrhs("interpolation", rhs, 5); // Input args

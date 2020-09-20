@@ -22,7 +22,7 @@ function [dms] = grad2gms(deg)
     // gms2grad  
     //
     // Authors
-    //  Hani Ibrahim ; hani.ibrahim@gmx.de
+    // Hani Ibrahim ; hani.ibrahim@gmx.de
     //
     
     [lhs,rhs]=argn()
