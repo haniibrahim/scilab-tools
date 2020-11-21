@@ -33,7 +33,7 @@ function [ev_x, ev_y] = findExtremeVal(x,y)
     apifun_checkrhs("findExtremeVal", rhs, 2); // Input args
     apifun_checklhs("findExtremeVal", lhs, 2); // Output args
     apifun_checkvector("findExtremeVal", x, "x", 1);
-    apifun_checkvector("findExtremeVal", y, "y", 1);
+    apifun_checkvector("findExtremeVal", y, "y", 2);
     apifun_checktype("findExtremeVal", x, "x", 1, "constant");
     apifun_checktype("findExtremeVal", y, "y", 2, "constant");
     
