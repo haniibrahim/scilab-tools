@@ -2,34 +2,28 @@
 // ========================================
 // You can execute this file to generate the library. It is not protected
 // against "clear". Use "predef" for protection.
+//
 // In general you just have to execute the genlib command once and put the
-// lib-command-line into your startfile as ".scilab" or "scilab.ini".
+// lib-command-line into your startfile ".scilab" or "scilab.ini" in SCIHOME.
+
 path=(get_absolute_file_path("make_lib.sce")); // platform idependend path to this script
-unix("ls -1 *.sci >names")
-mdelete(path +'lib'); // delete old library files
-mdelete(path + '*.bin'); // delete old library files
+
+// Delete old lib files
+mdelete(path + 'names'); 
+mdelete(path + 'lib'); 
+mdelete(path + '*.bin'); 
+
+// Create names-file, contains list of all SCI file names for Scilab versions < 6.0
+// This block is optional for Sclilab 6 and higher
+if getos() == "Windows" then
+    dos("dir /b " + """" + fullfile(path,"*.sci") + """" + " > " + """" + fullfile(path, "names") + """" ); // """" means " around path for blamks
+else // *nix incl. macOS
+    unix_s("cd " + """" + path + """" + " && " + "ls -1 *.sci > names"); 
+end
+
+// Create and load Lib
 genlib("HI_tools",path); // compiles sci- to bin-files and create lib file
 HI_tools=lib(path); // load lib to Scilab
+
 clear path // tidy up
-
-//if getos()=="Linux" then
-//    mdelete('/home/hi/Dropbox/Entwicklung/Scilab/tools/lib');
-//    mdelete('/home/hi/Dropbox/Entwicklung/Scilab/tools/names');
-//    mdelete('/home/hi/Dropbox/Entwicklung/Scilab/tools/*.bin');
-//    genlib("HI_tools","/home/hi/Dropbox/Entwicklung/Scilab/tools"+"/");
-//    HI_tools=lib("/home/hi/Dropbox/Entwicklung/Scilab/tools"+"/");
-//elseif getos()=="Windows" then
-//    mdelete('C:\Users\hi\Dropbox\Entwicklung\Scilab\tools\lib');
-//    mdelete('C:\Users\hi\Dropbox\Entwicklung\Scilab\tools\names');
-//    mdelete('C:\Users\hi\Dropbox\Entwicklung\Scilab\tools\*.bin');
-//    genlib("HI_tools","C:\Users\hi\Dropbox\Entwicklung\Scilab\tools"+"\");
-//    HI_tools=lib("C:\Users\hi\Dropbox\Entwicklung\Scilab\tools"+"/");
-//elseif getos()=="Darwin" then
-//    mdelete('/Users/hi/Dropbox/Entwicklung/Scilab/tools/lib');
-//    mdelete('/Users/hi/Dropbox/Entwicklung/Scilab/tools/names');
-//    mdelete('/Users/hi/Dropbox/Entwicklung/Scilab/tools/*.bin');
-//    genlib("HI_tools","/Users/hi/Dropbox/Entwicklung/Scilab/tools"+"/");
-//    HI_tools=lib("/Users/hi/Dropbox/Entwicklung/Scilab/tools"+"/");
-//end
-
 
