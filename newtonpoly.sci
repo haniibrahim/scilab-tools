@@ -1,7 +1,7 @@
 function y0 = newtonpoly(x, y, x0)
     // Newton's devided difference polynomial method for interpolation
     //
-    // Calling Sequence
+    // Syntax
     // IP = newtonpoly(x, f, x0)
     //
     // Parameters

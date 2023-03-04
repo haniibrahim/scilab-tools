@@ -1,7 +1,7 @@
 function [retval] = isint(n, neg, z)
     // Determine if committed number is a floating point integer.
     //
-    // Calling Sequence
+    // Syntax
     // [retval] = isint(n, neg, z)
     //
     // Parameters

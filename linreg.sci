@@ -1,7 +1,7 @@
 function [yp,a,b,r] = linreg(x,y,plt)
     // Performs a simple linear regression
     //
-    // Calling Sequence
+    // Syntax
     // [yp,a,b,r] = linreg(x,y,plt)
     // [yp,a,b,r] = linreg(x,y)
     // [yp,a,b]   = linreg(x,y)

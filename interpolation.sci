@@ -1,7 +1,7 @@
 function [y] = interpolation(x1, x2, y1, y2, x)
     // Linear interpolation between two pairs of values
     //
-    // Calling Sequence
+    // Syntax
     // [y] = interpolation(x1, x2, y1, y2, x)
     //
     // Parameters

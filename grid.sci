@@ -1,7 +1,7 @@
 function grid(swit)
     // Turns on grid ON or OFF on plots
     //
-    // Calling Sequence
+    // Syntax
     // grid(swit)
     //
     // Parameters

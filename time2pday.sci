@@ -1,7 +1,7 @@
 function [part] = time2pday(time)
     // Convert the part of a day from time.
     //
-    // Calling Sequence
+    // Syntax
     // part = time2pday(time)
     //
     // Parameters

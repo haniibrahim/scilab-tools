@@ -1,7 +1,7 @@
 function [deg] = gms2grad(dms)
     // Convert angle from degree° arcmininute' arcsecond" to decimal degree
     //
-    // Calling Sequence
+    // Syntax
     // [deg] = gms2grad(dms)
     //
     // Parameters

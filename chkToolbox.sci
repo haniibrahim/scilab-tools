@@ -1,7 +1,7 @@
 function chkToolbox(tb,sci)
     // Displays an error message if a specified ATOMS toolbox is not installed
     //
-    // Calling Sequence
+    // Syntax
     // chkToolbox(tb)
     // chkToolbox(tb,sci)
     //

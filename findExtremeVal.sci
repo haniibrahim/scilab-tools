@@ -1,7 +1,7 @@
 function [ev_x, ev_y] = findExtremeVal(x,y)
     // Returns extreme values (maxima/minima) of numerical data
     //
-    // Calling Sequence
+    // Syntax
     // [ev_x, ev_y] = findExtremeVal(x,y)
     //
     // Parameters

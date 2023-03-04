@@ -2,7 +2,7 @@
 function exe(path)
     // Quickstarter for SCE scripts (*.sce)
     //
-    // Calling Sequence
+    // Syntax
     // exec(path)
     //
     // Parameters

@@ -1,7 +1,7 @@
 function [ip_x, ip_y] = findInflecPts(x,y)
     // Returns points of inflection of a numerical data
     //
-    // Calling Sequence
+    // Syntax
     // ip_x, ip_y] = findInflecPts(x,y)
     //
     // Parameters

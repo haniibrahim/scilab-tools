@@ -50,6 +50,8 @@ function peaks=peak_detect(signal,threshold)
     // 
     // See also
     // freson
+    // findExtremeVal
+    // findInflecPts
     //
     // Authors
     // Jean-Luc Goudier 

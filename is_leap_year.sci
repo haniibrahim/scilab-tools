@@ -1,7 +1,7 @@
 function leapYear = is_leap_year(year)
     // Calculates whether the committed year is a leap year or not. 
     //
-    // Calling Sequence
+    // Syntax
     // leapYear = is_leap_year(year)
     //
     // Parameters

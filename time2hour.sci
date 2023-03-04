@@ -1,7 +1,7 @@
 function [hour] = time2hour(time)
     // Convert time to a number of hour.
     //
-    // Calling Sequence
+    // Syntax
     // [hour] = time2hour([h m s])
     //
     // Parameters

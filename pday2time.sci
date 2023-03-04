@@ -1,7 +1,7 @@
 function [time] = pday2time(part)
     // Returns the time (hours, minutes, seconds) from a part of a day.
     //
-    // Calling Sequence
+    // Syntax
     // [time] = pday2time(part)
     //
     // Parameters

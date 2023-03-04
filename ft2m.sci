@@ -1,7 +1,7 @@
 function [m]=ft2m(ft)
     // Convert feet to meters.
     //
-    // Calling Sequence
+    // Syntax
     // [m] = ft2m(ft)
     //
     // Parameters

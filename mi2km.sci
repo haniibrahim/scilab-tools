@@ -1,7 +1,7 @@
 function [km]=mi2km(mi)
     // Convert miles to kilometers.
     //
-    // Calling Sequence
+    // Syntax
     // [km] = mi2km(mi)
     //
     // Parameters

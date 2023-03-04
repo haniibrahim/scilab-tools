@@ -1,7 +1,7 @@
 function [x1,x2] = pqform(p, q)
     // Solve quadratic equations via p-q-formula.
     //
-    // Calling Sequence
+    // Syntax
     // [x1, x2] = pqform(p, q)
     //
     // Parameters

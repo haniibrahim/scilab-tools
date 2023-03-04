@@ -1,7 +1,7 @@
 function [n_t] = radDecay(n_0, t_12, t)
     // Remaining number of atoms after radiactive decay.
     //
-    // Calling Sequence
+    // Syntax
     //   [n_t] = radDecay(n_0, t_12, t)
     //
     // Parameters

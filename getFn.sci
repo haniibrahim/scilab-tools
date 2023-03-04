@@ -2,7 +2,7 @@ function fn = getFn(path, filterset)
     // Opens a dialog window to select an arbitrary filename. 
     // and returns this filename including path.
     //
-    // Calling Sequence
+    // Syntax
     // fn = getFn()
     // fn = getCsvFn(path)
     // fn = getCsvFn(path, filterset)

@@ -1,7 +1,7 @@
 function [time] = hour2time(hour)
     // Returns the time (hours, minutes, seconds) from a floating point hour value.
     //
-    // Calling Sequence
+    // Syntax
     // [time] = hour2time(hour)
     //
     // Parameters

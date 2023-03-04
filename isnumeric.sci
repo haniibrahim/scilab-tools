@@ -1,7 +1,7 @@
 function [retval] = isnumeric(n)
     // Determine if input is a numeric array (Matlab-compatible)
     //
-    // Calling Sequence
+    // Syntax
     // [retval] = isnumeric(n)
     //
     // Parameters

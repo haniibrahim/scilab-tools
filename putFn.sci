@@ -2,7 +2,7 @@ function fn = putFn(path, filterset)
     // Opens a dialog box to enter an arbitrary file name and returns this 
     // file name including path.
     //
-    // Calling Sequence
+    // Syntax
     // fn = putFn()
     // fn = putFn(path)
     // fn = putFn(path, filterset)

@@ -1,7 +1,7 @@
 function [retval] = rem(x, y)
     // Returns the remaining part of a division (Matlab-compatible)
     //
-    // Calling Sequence
+    // Syntax
     // [retval] = rem(x, y)
     //
     // Parameters
