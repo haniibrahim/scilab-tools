@@ -1,8 +1,8 @@
-function [dms] = grad2gms(deg)
+function [dms] = deg2dms(deg)
     // Convert angle from decimal degree to degree° arcmininute' arcsecond"  
     //
     // Syntax
-    // [dms] = grad2gms(deg)
+    // [dms] = deg2dms(deg)
     //
     // Parameters
     // deg: angle as a scalar in decimal degree
@@ -15,20 +15,20 @@ function [dms] = grad2gms(deg)
     // Matrix-capable.
     //
     // Examples
-    // [dms1] = grad2gms(12,55)
-    // [dms2] = grad2gms([12.55; 25.5])
+    // [dms1] = deg2dms(12.55)
+    // [dms2] = deg2dms([12.55; 25.5])
     //
     // See also
-    // gms2grad  
+    // dms2deg  
     //
     // Authors
     // Hani Ibrahim ; hani.ibrahim@gmx.de
     //
     
     [lhs,rhs]=argn()
-    apifun_checkrhs("grad2gms", rhs, 1); // Input args
-    apifun_checklhs("grad2gms", lhs, 1); // Output args
-    apifun_checkveccol("grad2gms", deg, "deg", 1) // only column vectors allowed
+    apifun_checkrhs("deg2dms", rhs, 1); // Input args
+    apifun_checklhs("deg2dms", lhs, 1); // Output args
+    apifun_checkveccol("deg2dms", deg, "deg", 1) // only column vectors allowed
     
         
     g = int(deg);
