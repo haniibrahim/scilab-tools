@@ -33,6 +33,8 @@ function fn = getFn(path, filterset)
     // 
     // The "All Files" filter is always selectable.
     //
+    // <note>Filter has no effect on Scilab >= 2024.0.0 on macOS!</note>
+    //
     // Examples
     // // Initial directory is home directory, no extension filtering
     // fn = getFn();
@@ -59,7 +61,7 @@ function fn = getFn(path, filterset)
     apifun_checkrhs("getFn",rhs, 0:2);
     apifun_checklhs("getFn",lhs, 1);
     
-    // Filtersets
+    // Filtersets (No effect on Scilab 2024.0.0 on macOS)
     dat = ["*.csv|*.txt|*.dat","Data text files (*.csv, *.txt, *.dat)"];
     xls = ["*.xls","Excel 95-2000 files (*.xls)"];
     sod = ["*.sod", "Scilab variable files (*.sod)"];
@@ -68,13 +70,13 @@ function fn = getFn(path, filterset)
     
     if rhs == 0 then
         path = home;
-        filterset = """""";
+    filterset = """";
     end
     if rhs == 1 then
         apifun_checkscalar("getFn", path, "path",1);
         apifun_checktype("getFn", path, "path",1 , "string" );
         if path == "" then path = home; end
-        filterset = """""";
+        filterset = """";
     end
     if rhs == 2 then
         apifun_checkoption("getFn", filterset, "filterset", 2, ["dat" "xls" "sod" "dia" "hdf"])
@@ -82,5 +84,5 @@ function fn = getFn(path, filterset)
     end
 
     // Get filename incl. path of an CSV file
-    execstr("fn=uigetfile(" + filterset + " , path,""Choose a file"")");
+    fn = uigetfile(filterset, path, "Choose a file");
 endfunction
