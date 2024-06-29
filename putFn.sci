@@ -90,7 +90,7 @@ function fn = putFn(path, filterset)
     end
 
     // Get filename incl. path of an CSV file
-    execstr("fn=uiputfile(" + filterset + " , path,""Enter a filename"")");
+    fn=uiputfile(filterset, path,"Enter a filename");
     
     // Checks if fn has an extension. If not and a filterset is used it 
     // sets an appropriate one:
