@@ -21,7 +21,7 @@ function gr = goldenratio()
     // Authors
     // Hani Ibrahim ; hani.ibrahim@gmx.de 
     [lhs,rhs]=argn()
-    apifun_checklhs("goldenratio", lhs, 0); // Input args
+    apifun_checklhs("goldenratio", lhs, 1); // Input args
     apifun_checkrhs("goldenratio", rhs, 0); // Input args
     
     gr = ((1+sqrt(5))/2)

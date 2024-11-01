@@ -76,13 +76,13 @@ function fn = putFn(path, filterset)
     
     if rhs == 0 then
         path = home;
-        filterset = """""";
+        filterset = "[""""]";
     end
     if rhs == 1 then
         apifun_checkscalar("putFn", path, "path",1);
         apifun_checktype("putFn", path, "path",1 , "string" );
         if path == "" then path = home; end
-        filterset = """""";
+        filterset = "[""""]";
     end
     if rhs == 2 then
         apifun_checkoption("putFn", filterset, "filterset", 2, ["dat" "xls" "sod" "dia"])
@@ -90,7 +90,8 @@ function fn = putFn(path, filterset)
     end
 
     // Get filename incl. path of an CSV file
-    fn=uiputfile(filterset, path,"Enter a filename");
+//    fn=uiputfile(filterset, path,"Enter a filename");
+    execstr("fn=uiputfile(" + filterset + " , path,""Enter a filename"")");
     
     // Checks if fn has an extension. If not and a filterset is used it 
     // sets an appropriate one:

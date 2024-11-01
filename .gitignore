@@ -3,5 +3,6 @@ lib
 names*
 *.swp
 .DS_Store
-
+lib(1)
 lib.xml
+*.sci~
