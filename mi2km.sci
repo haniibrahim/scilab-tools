@@ -6,7 +6,7 @@ function [km]=mi2km(mi)
     //
     // Parameters
     // mi: Nx1 matrix or vector of doubles, distance in miles
-    // km: Nx1 matrix (row vector) of doubles, distance in km
+    // km: Nx1 matrix (row vector) of doubles, distance in kilometers
     //
     // Description
     // Convert distances of miles in kilometer

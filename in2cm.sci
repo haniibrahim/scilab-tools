@@ -1,12 +1,12 @@
-function [m]=ft2m(ft)
+function [cm]=in2cm(in)
     // Convert inch to centimeter.
     //
     // Syntax
     // [cm] = in2cm(in)
     //
     // Parameters
-    // mi: Nx1 matrix or vector of floating point integers, distance in feet
-    // km: Nx1 matrix (row vector) of doubles, distance in m
+    // in: Nx1 matrix or vector of floating point integers, distance in inch
+    // cm: Nx1 matrix (row vector) of doubles, distance in centimeters
     //
     // Description
     // Convert distances of inch to cntimeters.
@@ -15,7 +15,7 @@ function [m]=ft2m(ft)
     //
     // Examples
     // dist1   = in2cm(1)
-    // [dist] = ft2m([1.2 5.3 7.4])
+    // [dist]  = in2cm([1.2 5.3 7.4])
     //
     // See also
     // m2ft
@@ -23,6 +23,7 @@ function [m]=ft2m(ft)
     // km2mi
     // ft2m
     // m2ft
+    // cm2in
     //
     // Authors
     // Hani Ibrahim ; hani.ibrahim@gmx.de 
@@ -30,7 +31,7 @@ function [m]=ft2m(ft)
     [lhs,rhs]=argn()
     apifun_checkrhs("in2cm", rhs, 1); // Input args
     apifun_checklhs("in2cm", lhs, 1); // Output args
-    apifun_checktype("in2cm", ft, "in", 1, ["constant"]);
+    apifun_checktype("in2cm", in, "in", 1, ["constant"]);
     
-    m = in ./ 2.54;
+    cm = in .* 2.54;
 endfunction

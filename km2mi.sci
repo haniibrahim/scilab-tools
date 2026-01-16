@@ -5,7 +5,7 @@ function [mi]=km2mi(km)
     // [km] = km2mi(mi)
     //
     // Parameters
-    // mi: Nx1 matrix or vector of floating point integers, distance in km
+    // mi: Nx1 matrix or vector of floating point integers, distance in kilometers
     // km: Nx1 matrix (row vector) of doubles, distance in miles
     //
     // Description
@@ -15,7 +15,7 @@ function [mi]=km2mi(km)
     //
     // Examples
     // dist1   = km2mi(1)
-    // [dist] = km2mi([1.2 5.3 7.4])
+    // [dist]  = km2mi([1.2 5.3 7.4])
     //
     // See also
     // mi2km

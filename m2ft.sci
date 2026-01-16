@@ -5,7 +5,7 @@ function [ft]=m2ft(m)
     // [ft] = m2ft(m)
     //
     // Parameters
-    // mi: Nx1 matrix or vector of floating point integers, distance in m
+    // mi: Nx1 matrix or vector of floating point integers, distance in meters
     // km: Nx1 matrix (row vector) of doubles, distance in feet
     //
     // Description
@@ -15,7 +15,7 @@ function [ft]=m2ft(m)
     //
     // Examples
     // dist1   = m2ft(1)
-    // [dist] = m2ft([1.2 5.3 7.4])
+    // [dist]  = m2ft([1.2 5.3 7.4])
     //
     // See also
     // m2ft
