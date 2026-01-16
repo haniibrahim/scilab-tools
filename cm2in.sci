@@ -1,15 +1,15 @@
-function [ft]=m2ft(m)
-    // Convert meters to feet.
+function [in]=m2ft(cm)
+    // Convert cm to in
     //
     // Syntax
-    // [ft] = m2ft(m)
+    // [in] = m2ft(cm)
     //
     // Parameters
     // mi: Nx1 matrix or vector of floating point integers, distance in m
     // km: Nx1 matrix (row vector) of doubles, distance in feet
     //
     // Description
-    // Convert distances of meters in feet.
+    // Convert distances of centimeters to inches.
     //
     // Matrix-capable.
     //
@@ -32,5 +32,5 @@ function [ft]=m2ft(m)
     apifun_checklhs("m2ft", lhs, 1); // Output args
     apifun_checktype("m2ft", m, "m", 1, ["constant"]);
     
-    ft = m ./ 0.3048;
+    ft = m ./ 0.393700787402;
 endfunction
