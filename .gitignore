@@ -6,3 +6,4 @@ names*
 lib(1)
 lib.xml
 *.sci~
+*.sbin

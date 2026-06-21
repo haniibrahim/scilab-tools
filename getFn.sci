@@ -65,16 +65,17 @@ function fn = getFn(path, filterset)
     sod = ["*.sod", "Scilab variable files (*.sod)"];
     dia = ["*.diary.txt", "Diary file (*.diary.txt)"];
     hdf = ["*.h5|hdf|hdf5|sod", "HDF5-files (*.h5, *.hdf, *.hdf5, *.sod)"];
+    all = ["*.*", "All files (*.*)"];
     
     if rhs == 0 then
         path = home;
-        filterset = "[""""]";
+        filterset = "all";
     end
     if rhs == 1 then
         apifun_checkscalar("getFn", path, "path",1);
         apifun_checktype("getFn", path, "path",1 , "string" );
         if path == "" then path = home; end
-        filterset = "[""""]";
+        filterset = "all";
     end
     if rhs == 2 then
         apifun_checkoption("getFn", filterset, "filterset", 2, ["dat" "xls" "sod" "dia" "hdf"])
