@@ -73,16 +73,17 @@ function fn = putFn(path, filterset)
     xls = ["*.xls","Excel 95-2000 files (*.xls)"];
     sod = ["*.sod", "Scilab variable files (*.sod)"];
     dia = ["*.diary.txt", "Diary file (*.diary.txt)"];
+    all = ["*.*", "All files (*.*)"];
     
     if rhs == 0 then
         path = home;
-        filterset = "[""""]";
+        filterset ="all";
     end
     if rhs == 1 then
         apifun_checkscalar("putFn", path, "path",1);
         apifun_checktype("putFn", path, "path",1 , "string" );
         if path == "" then path = home; end
-        filterset = "[""""]";
+        filterset = "all";
     end
     if rhs == 2 then
         apifun_checkoption("putFn", filterset, "filterset", 2, ["dat" "xls" "sod" "dia"])
@@ -116,5 +117,5 @@ function fn = putFn(path, filterset)
     end
     
     fn = fn + ext;
-    
+
 endfunction
