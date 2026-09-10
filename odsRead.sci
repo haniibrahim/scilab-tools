@@ -85,6 +85,200 @@
 
 function data = odsRead(filename, varargin)
 
+    // ============================================================================
+    // Quote a filename or executable path for the operating-system shell.
+    // ============================================================================
+
+    function quoted = odsShellQuote(value)
+
+        if getos() == "Windows" then
+
+            // Quote Windows paths using double quotes.
+            quoted = """" + strsubst(value, """", """""") + """";
+
+        else
+
+            // Quote POSIX shell arguments using single quotes.
+            // Embedded single quotes are escaped for the shell.
+            singleQuote = ascii(39);
+            replacement = singleQuote + "\" + singleQuote + singleQuote;
+
+            quoted = singleQuote + ..
+            strsubst(value, singleQuote, replacement) + ..
+            singleQuote;
+
+        end
+
+    endfunction
+
+
+    // ============================================================================
+    // Convert a numeric xlsxRead-style 2x2 range matrix to Excel A1 notation.
+    //
+    // Example:
+    //     [1 1 ; 10 3]  ->  "A1:C10"
+    // ============================================================================
+
+    function rangeString = odsRangeToA1(rangeMatrix)
+
+        row1 = rangeMatrix(1, 1);
+        col1 = rangeMatrix(1, 2);
+        row2 = rangeMatrix(2, 1);
+        col2 = rangeMatrix(2, 2);
+
+        if row2 < row1 | col2 < col1 then
+            error("odsRead: Invalid numeric range.");
+        end
+
+        rangeString = ..
+        odsColumnName(col1) + string(row1) + ":" + ..
+        odsColumnName(col2) + string(row2);
+
+    endfunction
+
+
+    // ============================================================================
+    // Convert a positive Excel column number to an Excel column name.
+    //
+    // Examples:
+    //     1  -> A
+    //     26 -> Z
+    //     27 -> AA
+    // ============================================================================
+
+    function name = odsColumnName(column)
+
+        if column < 1 | column <> floor(column) then
+            error("odsRead: Column index must be a positive integer.");
+        end
+
+        name = "";
+        n = column;
+
+        while n > 0
+
+            r = modulo(n - 1, 26);
+
+            name = ascii(65 + r) + name;
+
+            n = floor((n - 1) / 26);
+
+        end
+
+    endfunction
+
+
+    // ============================================================================
+    // Convert xlread() raw cell output to a string matrix.
+    // ============================================================================
+
+    function output = odsRawToString(raw)
+
+        nr = size(raw, 1);
+        nc = size(raw, 2);
+
+        output = emptystr(nr, nc);
+
+        for r = 1:nr
+            for c = 1:nc
+
+                value = raw{r, c};
+
+                if isempty(value) then
+
+                    output(r, c) = "";
+
+                elseif type(value) == 10 then
+
+                    output(r, c) = value;
+
+                elseif type(value) == 1 then
+
+                    if size(value, "*") == 1 then
+
+                        if isnan(value) then
+                            output(r, c) = "NaN";
+                        elseif isinf(value) then
+                            if value > 0 then
+                                output(r, c) = "Inf";
+                            else
+                                output(r, c) = "-Inf";
+                            end
+                        else
+                            output(r, c) = string(value);
+                        end
+
+                    else
+                        output(r, c) = string(value);
+                    end
+
+                elseif type(value) == 4 then
+
+                    if value then
+                        output(r, c) = "TRUE";
+                    else
+                        output(r, c) = "FALSE";
+                    end
+
+                elseif iscell(value) then
+
+                    // xlread() stores Excel date cells internally as a cell
+                    // containing the numeric serial value and formatted text.
+                    if size(value, "*") >= 2 then
+                        formatted = value{2};
+
+                        if type(formatted) == 10 then
+                            output(r, c) = formatted;
+                        else
+                            output(r, c) = string(value{1});
+                        end
+                    elseif size(value, "*") == 1 then
+                        output(r, c) = string(value{1});
+                    end
+
+                else
+
+                    // Use Scilab's generic string conversion as a final fallback.
+                    try
+                        output(r, c) = string(value);
+                    catch
+                        output(r, c) = "";
+                    end
+
+                end
+
+            end
+        end
+
+    endfunction
+
+
+    // ============================================================================
+    // Remove the temporary conversion directory and all files created in it.
+    // ============================================================================
+
+    function odsCleanupDirectory(tempDir)
+
+        if ~isdir(tempDir) then
+            return;
+        end
+
+        files = findfiles(tempDir, "*");
+
+        for k = 1:size(files, "*")
+
+            currentFile = fullfile(tempDir, files(k));
+
+            if isfile(currentFile) then
+                mdelete(currentFile);
+            end
+
+        end
+
+        rmdir(tempDir);
+
+    endfunction
+
     // ------------------------------------------------------------------------
     // Validate input filename
     // ------------------------------------------------------------------------
@@ -262,7 +456,7 @@ function data = odsRead(filename, varargin)
     // Locate LibreOffice
     // ------------------------------------------------------------------------
 
-    soffice = odsFindLibreOffice();
+    soffice = odsFindOffice();
 
     if soffice == "" then
         error( ..
@@ -432,294 +626,5 @@ function data = odsRead(filename, varargin)
 endfunction
 
 
-// ============================================================================
-// Locate the LibreOffice command-line executable.
-// ============================================================================
 
-function soffice = odsFindLibreOffice()
 
-    soffice = "";
-    os = getos();
-
-    select os
-
-    case "Windows" then
-
-        candidates = [ ..
-        "C:\Program Files\LibreOffice\program\soffice.exe"; ..
-        "C:\Program Files (x86)\LibreOffice\program\soffice.exe" ..
-        ];
-
-        for k = 1:size(candidates, "*")
-            if isfile(candidates(k)) then
-                soffice = candidates(k);
-                return;
-            end
-        end
-
-        // Try resolving soffice through the Windows PATH.
-        [status, stdout, stderr] = host("where soffice.exe");
-
-        if status == 0 & size(stdout, "*") >= 1 then
-            candidate = stripblanks(stdout(1));
-
-            if candidate <> "" then
-                soffice = candidate;
-                return;
-            end
-        end
-
-    case "Linux" then
-
-        // Try the executable available through PATH first.
-        [status, stdout, stderr] = host("command -v soffice");
-
-        if status == 0 & size(stdout, "*") >= 1 then
-            candidate = stripblanks(stdout(1));
-
-            if candidate <> "" then
-                soffice = candidate;
-                return;
-            end
-        end
-
-        candidates = [ ..
-        "/usr/bin/soffice"; ..
-        "/usr/local/bin/soffice"; ..
-        "/snap/bin/libreoffice" ..
-        ];
-
-        for k = 1:size(candidates, "*")
-            if isfile(candidates(k)) then
-                soffice = candidates(k);
-                return;
-            end
-        end
-
-    case "Darwin" then
-
-        candidates = [ ..
-        "/Applications/LibreOffice.app/Contents/MacOS/soffice"; ..
-        "/usr/local/bin/soffice"; ..
-        "/opt/homebrew/bin/soffice" ..
-        ];
-
-        for k = 1:size(candidates, "*")
-            if isfile(candidates(k)) then
-                soffice = candidates(k);
-                return;
-            end
-        end
-
-    else
-
-        // Try a generic POSIX PATH lookup for other Unix-like systems.
-        [status, stdout, stderr] = host("command -v soffice");
-
-        if status == 0 & size(stdout, "*") >= 1 then
-            candidate = stripblanks(stdout(1));
-
-            if candidate <> "" then
-                soffice = candidate;
-                return;
-            end
-        end
-
-    end
-
-endfunction
-
-
-// ============================================================================
-// Quote a filename or executable path for the operating-system shell.
-// ============================================================================
-
-function quoted = odsShellQuote(value)
-
-    if getos() == "Windows" then
-
-        // Quote Windows paths using double quotes.
-        quoted = """" + strsubst(value, """", """""") + """";
-
-    else
-
-        // Quote POSIX shell arguments using single quotes.
-        // Embedded single quotes are escaped for the shell.
-        singleQuote = ascii(39);
-        replacement = singleQuote + "\" + singleQuote + singleQuote;
-
-        quoted = singleQuote + ..
-        strsubst(value, singleQuote, replacement) + ..
-        singleQuote;
-
-    end
-
-endfunction
-
-
-// ============================================================================
-// Convert a numeric xlsxRead-style 2x2 range matrix to Excel A1 notation.
-//
-// Example:
-//     [1 1 ; 10 3]  ->  "A1:C10"
-// ============================================================================
-
-function rangeString = odsRangeToA1(rangeMatrix)
-
-    row1 = rangeMatrix(1, 1);
-    col1 = rangeMatrix(1, 2);
-    row2 = rangeMatrix(2, 1);
-    col2 = rangeMatrix(2, 2);
-
-    if row2 < row1 | col2 < col1 then
-        error("odsRead: Invalid numeric range.");
-    end
-
-    rangeString = ..
-    odsColumnName(col1) + string(row1) + ":" + ..
-    odsColumnName(col2) + string(row2);
-
-endfunction
-
-
-// ============================================================================
-// Convert a positive Excel column number to an Excel column name.
-//
-// Examples:
-//     1  -> A
-//     26 -> Z
-//     27 -> AA
-// ============================================================================
-
-function name = odsColumnName(column)
-
-    if column < 1 | column <> floor(column) then
-        error("odsRead: Column index must be a positive integer.");
-    end
-
-    name = "";
-    n = column;
-
-    while n > 0
-
-        r = modulo(n - 1, 26);
-
-        name = ascii(65 + r) + name;
-
-        n = floor((n - 1) / 26);
-
-    end
-
-endfunction
-
-
-// ============================================================================
-// Convert xlread() raw cell output to a string matrix.
-// ============================================================================
-
-function output = odsRawToString(raw)
-
-    nr = size(raw, 1);
-    nc = size(raw, 2);
-
-    output = emptystr(nr, nc);
-
-    for r = 1:nr
-        for c = 1:nc
-
-            value = raw{r, c};
-
-            if isempty(value) then
-
-                output(r, c) = "";
-
-            elseif type(value) == 10 then
-
-                output(r, c) = value;
-
-            elseif type(value) == 1 then
-
-                if size(value, "*") == 1 then
-
-                    if isnan(value) then
-                        output(r, c) = "NaN";
-                    elseif isinf(value) then
-                        if value > 0 then
-                            output(r, c) = "Inf";
-                        else
-                            output(r, c) = "-Inf";
-                        end
-                    else
-                        output(r, c) = string(value);
-                    end
-
-                else
-                    output(r, c) = string(value);
-                end
-
-            elseif type(value) == 4 then
-
-                if value then
-                    output(r, c) = "TRUE";
-                else
-                    output(r, c) = "FALSE";
-                end
-
-            elseif iscell(value) then
-
-                // xlread() stores Excel date cells internally as a cell
-                // containing the numeric serial value and formatted text.
-                if size(value, "*") >= 2 then
-                    formatted = value{2};
-
-                    if type(formatted) == 10 then
-                        output(r, c) = formatted;
-                    else
-                        output(r, c) = string(value{1});
-                    end
-                elseif size(value, "*") == 1 then
-                    output(r, c) = string(value{1});
-                end
-
-            else
-
-                // Use Scilab's generic string conversion as a final fallback.
-                try
-                    output(r, c) = string(value);
-                catch
-                    output(r, c) = "";
-                end
-
-            end
-
-        end
-    end
-
-endfunction
-
-
-// ============================================================================
-// Remove the temporary conversion directory and all files created in it.
-// ============================================================================
-
-function odsCleanupDirectory(tempDir)
-
-    if ~isdir(tempDir) then
-        return;
-    end
-
-    files = findfiles(tempDir, "*");
-
-    for k = 1:size(files, "*")
-
-        currentFile = fullfile(tempDir, files(k));
-
-        if isfile(currentFile) then
-            mdelete(currentFile);
-        end
-
-    end
-
-    rmdir(tempDir);
-
-endfunction
