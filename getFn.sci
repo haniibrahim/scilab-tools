@@ -61,7 +61,7 @@ function fn = getFn(path, filterset)
     
     // Filtersets
     dat = ["*.csv|*.txt|*.dat","Data text files (*.csv, *.txt, *.dat)"];
-    xls = ["*.xls","Excel 95-2000 files (*.xls)"];
+    xls = ["*.xls|*.xlsx","Excel files (*.xls, *.xlsx)"];
     sod = ["*.sod", "Scilab variable files (*.sod)"];
     dia = ["*.diary.txt", "Diary file (*.diary.txt)"];
     hdf = ["*.h5|hdf|hdf5|sod", "HDF5-files (*.h5, *.hdf, *.hdf5, *.sod)"];

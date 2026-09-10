@@ -70,7 +70,7 @@ function fn = putFn(path, filterset)
     
     // Filtersets
     dat = ["*.csv|*.txt|*.dat","Data text files (*.csv, *.txt, *.dat)"];
-    xls = ["*.xls","Excel 95-2000 files (*.xls)"];
+    xls = ["*.xls|*.xlsx","Excel files (*.xls, *.xlsx)"];
     sod = ["*.sod", "Scilab variable files (*.sod)"];
     dia = ["*.diary.txt", "Diary file (*.diary.txt)"];
     all = ["*.*", "All files (*.*)"];
@@ -101,7 +101,7 @@ function fn = putFn(path, filterset)
     // sod => ".sod"
     // dia => ".diary.txt"
     ext = "";
-    if fileparts(fn, "extension") == "" then
+    if fileparts(fn, "extension") == "" & fn ~= "" then
         select filterset
         case "dat" then
             ext = ".txt";
