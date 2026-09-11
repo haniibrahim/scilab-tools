@@ -432,13 +432,14 @@ function [soffice, officeType] = odsFindOffice()
     error( ..
         "odsFindOffice: Neither LibreOffice nor Apache OpenOffice could be found." + ..
         ascii(10) + ascii(10) + ..
-        "If you are sure that LibreOffice or Apache OpenOffice is installed, " + ..
-        "create an environment variable named SOFFICE containing the full path " + ..
-        "to the soffice executable." + ..
+        "If you are sure that LibreOffice or Apache OpenOffice is installed, " + ascii(10) + ..
+        "create an environment variable named SOFFICE containing the full path " + ascii(10) + ..
+        "to the soffice executable. E.g. in Windows Powershell for the current user:" +ascii(10) + ..
+        "[System.Environment]::SetEnvironmentVariable(""SOFFICE"",""D:\LibreOffice\program\soffice.exe"",[System.EnvironmentVariableTarget]::User)" + ..
         ascii(10) + ascii(10) + ..
-        "After creating or changing the SOFFICE environment variable, exit " + ..
-        "Scilab and log out of your operating-system user account and log in " + ..
-        "again before starting Scilab." ..
+        "After creating or changing the SOFFICE environment variable, exit " + ascii(10) + ..
+        "Scilab and log out of your operating-system user account and log in " + ascii(10) + ..
+        "again before starting Scilab."  + ascii(10) ..
     );
 
 endfunction
